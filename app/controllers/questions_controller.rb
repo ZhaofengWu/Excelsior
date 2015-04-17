@@ -5,7 +5,7 @@ class QuestionsController < ApplicationController
   # GET /questions
   # GET /questions.json
   def index
-    @questions = Question.all
+    @questions = Question.all.sort{|a1, a2| a2.total_votes <=> a1.total_votes}
   end
 
   # GET /questions/1

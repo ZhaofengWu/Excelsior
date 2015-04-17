@@ -7,6 +7,7 @@ class Question
   field :body, type: String
 
   field :answers_count, type: Integer, default: 0
+  field :total_votes, type: Integer, default: 0
 
   has_many :answers, dependent: :destroy
 end

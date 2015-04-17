@@ -5,11 +5,13 @@ class AnswersController < ApplicationController
 
   def upvote
     @answer.inc(votes: 1)
+    @answer.question.inc(total_votes: 1)
     redirect_to @answer.question
   end
 
   def downvote
     @answer.inc(votes: -1)
+    @answer.question.inc(total_votes: -1)
     redirect_to @answer.question
   end
 #   # GET /questions

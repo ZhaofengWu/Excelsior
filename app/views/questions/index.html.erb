@@ -6,6 +6,7 @@
       <th>Title</th>
       <th>Body</th>
       <th>Answers Count</th>
+      <th>Total Votes</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,6 +17,7 @@
         <td><%= question.title %></td>
         <td><%= question.body %></td>
         <td><%= question.answers_count %></td>
+        <td><%= question.total_votes %></td>
         <td><%= link_to 'Show', question %></td>
         <td><%= link_to 'Edit', edit_question_path(question) %></td>
         <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>

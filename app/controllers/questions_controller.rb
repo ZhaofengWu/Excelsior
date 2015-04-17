@@ -1,5 +1,5 @@
 class QuestionsController < ApplicationController
-  before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :set_question, only: [:show, :edit, :update, :destroy, :answer]
   before_action :authenticate_user!
 
   # GET /questions
@@ -11,6 +11,11 @@ class QuestionsController < ApplicationController
   # GET /questions/1
   # GET /questions/1.json
   def show
+  end
+
+  def answer
+    @question.answers.create(params[:answer].permit(:body))
+    redirect_to @question, notice: 'Answer was successfully created'
   end
 
   # GET /questions/new

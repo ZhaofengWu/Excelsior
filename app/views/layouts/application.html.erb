@@ -10,7 +10,8 @@
 
 <p id="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
-<%= yield %>
+<div><%= yield %></div><br /><br />
+<%= link_to "Sign out", destroy_user_session_path, data: {method: "delete"}, class: "btn btn-default" if current_user %>
 
 </body>
 </html>

@@ -2,7 +2,7 @@ class Answer
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  field :body, type: String
+  field :body, type: String, default: ""
   field :votes, type: Integer, default: 0
 
   belongs_to :question

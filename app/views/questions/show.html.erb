@@ -10,13 +10,19 @@
 </div>
 
 <h1>Answers</h1>
-<ul>
-	<% @question.answers.each do |answer| %>
-	<li><%= answer.body %></li>
-	<% end -%>
-</ul>
+<% @question.answers.each do |answer| %>
+	<div class="an-answer">
+		<%= link_to 'Upvote', upvote_answer_path(answer), method: :post %>
+		<%= link_to 'Downvote', downvote_answer_path(answer), method: :post %>
+		<!-- <button>Upvote</button>
+		<button>Downvote</button> -->
+		  votes: <%= answer.votes %>
+		<p><%= answer.body %></p>
+		<br />
+	</div>
+<% end -%>
 
 <%= form_for(Answer.new, url: answer_question_path) do |f| %>
-	<%= f.text_area :body %><br	/><br />
+	<%= f.text_area :body %><br /><br />
 	<%= f.submit %>
 <% end -%>

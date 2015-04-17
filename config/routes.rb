@@ -8,6 +8,14 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :answers do
+    member do
+      post "upvote"
+      post "downvote"
+    end
+  end
+  #post "questions/:id/answer/:id" => "answers#vote"
+
   root to: "questions#index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

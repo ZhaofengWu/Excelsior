@@ -1,5 +1,14 @@
 Rails.application.routes.draw do
-  resources :questions
+  devise_for :users
+  resources :questions do
+    collection do
+    end
+    member do
+      post "answer"
+    end
+  end
+
+  root to: "questions#index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

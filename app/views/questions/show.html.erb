@@ -1,5 +1,5 @@
 <h3><%= @question.title %></h3>
-
+<p><%= @question.user.email %></p>
 <p>
   <%= @question.body %>
 </p>
@@ -10,17 +10,21 @@
 </div>
 
 <h1>Answers</h1>
-<% @question.answers.sort{|a1, a2| a2.votes <=> a1.votes}.each do |answer| %>
+<% answers = @question.answers.desc(:votes, :created_at).page params[:page] %>
+<% answers.each do |answer| %>
 	<div class="an-answer">
 		<%= link_to 'Upvote', upvote_answer_path(answer), method: :post %>
 		<%= link_to 'Downvote', downvote_answer_path(answer), method: :post %>
 		<!-- <button>Upvote</button>
 		<button>Downvote</button> -->
-		  votes: <%= answer.votes %>
+		  <strong>votes:</strong> <%= answer.votes %>
+		  <strong>author:</strong> <%= answer.user.email %>
 		<p><%= answer.body %></p>
 		<br />
 	</div>
 <% end -%>
+
+<%= paginate answers %>
 
 <%= form_for(Answer.new, url: answer_question_path) do |f| %>
 	<%= f.text_area :body %><br /><br />

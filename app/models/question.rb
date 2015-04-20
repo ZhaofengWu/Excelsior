@@ -10,4 +10,6 @@ class Question
   field :total_votes, type: Integer, default: 0
 
   has_many :answers, dependent: :destroy
+  belongs_to :user
+  validates_presence_of :user
 end

@@ -16,7 +16,7 @@ class QuestionsController < ApplicationController
   end
 
   def answer
-    @question.answers.create(body: params[:answer][:body], user: current_user)
+    @question.answers.create(body: params[:answer][:body], author: current_user)
     redirect_to @question, notice: 'Answer was successfully created'
   end
 
@@ -33,7 +33,7 @@ class QuestionsController < ApplicationController
   # POST /questions.json
   def create
     @question = Question.new(question_params)
-    @question.user = current_user
+    @question.author = current_user
     respond_to do |format|
       if @question.save
         format.html { redirect_to @question, notice: 'Question was successfully created.' }

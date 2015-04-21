@@ -6,9 +6,9 @@ class Answer
   field :votes, type: Integer, default: 0
 
   belongs_to :question
-  belongs_to :user
+  belongs_to :author, class_name: "User"
   validates_presence_of :question
-  validates_presence_of :user
+  validates_presence_of :author
 
   after_create do
 		self.question.inc(answers_count: 1)

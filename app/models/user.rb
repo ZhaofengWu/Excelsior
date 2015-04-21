@@ -35,5 +35,5 @@ class User
   # field :locked_at,       type: Time
   
   has_many :questions
-  has_many :anwsers
+  has_many :answers
 end

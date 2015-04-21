@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users, path: "auth"
+  resources :users
   resources :questions do
     collection do
     end

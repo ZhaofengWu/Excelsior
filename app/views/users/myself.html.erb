@@ -5,14 +5,17 @@
 
 <h3>Favorites</h3>
 <br />
-	<% @user.favorites[0].answers.each do |answer| %>
+	<% favorite_answers = @user.favorites[0].answers.page params[:page] %>
+	<% favorite_answers.each do |answer| %>
 		<div>
-			<h6><%= answer.question.title %></h6>
+			<h5><strong><%= answer.question.title %></strong></h5>
 			<p><%= answer.body %></p>
 			<%= link_to 'Destroy', remove_from_favorite_favorites_path(answer_id: answer.id), method: :delete, data: { confirm: 'Are you sure?' } %>
 			<br /><br />
 		</div>
 	<% end %>
+
+<%= paginate favorite_answers %>
 
 <br />
 <%= link_to 'Back', root_path %>

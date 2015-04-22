@@ -20,6 +20,8 @@
 		  <strong>votes:</strong> <%= answer.votes %>
 		  <strong>author:</strong> <%= answer.author.email %>
 		<p><%= answer.body %></p>
+		<%= link_to 'Add to favorites', add_to_favorite_favorites_path(answer_id: answer.id), data: { confirm: "Are you sure?" }, method: :post %>
+		<br />
 		<br />
 	</div>
 <% end -%>

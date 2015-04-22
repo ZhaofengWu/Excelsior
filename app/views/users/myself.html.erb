@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<h3>Favorites</h3>
+	<% @user.favorite.answers.each do |answer| %>
+		<div>
+			<h6><%= answer.question.title %></h6>
+			<p><%= answer.body %></p>
+			<%= link_to 'Destroy', favorite, method: :delete, data: { confirm: 'Are you sure?' } %>
+		</div>
+	<% end %>
+
+<br />
+<%= link_to 'Back', root_path %>
+<br /><br /><br />
+<% if current_user %>
+
+<%= link_to "Sign out", destroy_user_session_path, data: {method: "delete"}, class: "btn btn-default" if current_user %> | 
+<%= link_to "Settings", edit_user_registration_path %>
+<% end -%>

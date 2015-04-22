@@ -2,24 +2,14 @@ class Favorite
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  field :body, type: String, default: ""
+  field :title, type: String, default: ""
   field :votes, type: Integer, default: 0
+  #field :answers, type: Array, default: []
+  field :answers_count, type: Integer, default: 0
 
-  belongs_to :user
-  validates_presence_of :user
-# 接着做这里
-# 接着做这里
-# 接着做这里
-# 接着做这里
-# 接着做这里
-# 接着做这里
-# 接着做这里
-#   after_create do
+  belongs_to :owner, class_name: "User"
+  validates_presence_of :owner
 
-# 		self.question.inc(answers_count: 1)
-# 	end
+  has_and_belongs_to_many :answers, inverse_of: nil
 
-# 	after_destroy do
-# 		self.question.inc(answers_count: -1)
-# 	end
 end

@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users, path: "auth"
   resources :users
+  resources :favorites do
+    collection do
+      post "add_to_favorite"
+    end
+  end
   resources :questions do
     collection do
     end
@@ -15,6 +20,8 @@ Rails.application.routes.draw do
       post "downvote"
     end
   end
+
+  get "myself" => "users#myself", as: :myself
   #post "questions/:id/answer/:id" => "answers#vote"
 
   root to: "questions#index"

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :favorites do
     collection do
       post "add_to_favorite"
+      delete "remove_from_favorite"
     end
   end
   resources :questions do

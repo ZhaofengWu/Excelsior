@@ -1,16 +1,16 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong>Email:</strong>
   <%= @user.email %>
 </p>
 
 <h3>Favorites</h3>
-	<% @user.favorite.answers.each do |answer| %>
+<br />
+	<% @user.favorites[0].answers.each do |answer| %>
 		<div>
 			<h6><%= answer.question.title %></h6>
 			<p><%= answer.body %></p>
-			<%= link_to 'Destroy', favorite, method: :delete, data: { confirm: 'Are you sure?' } %>
+			<%= link_to 'Destroy', remove_from_favorite_favorites_path(answer_id: answer.id), method: :delete, data: { confirm: 'Are you sure?' } %>
+			<br /><br />
 		</div>
 	<% end %>
 

@@ -11,7 +11,6 @@ class FavoritesController < ApplicationController
     if current_user.favorites.count == 0
       current_user.favorites.create
     end
-    raise
     if not current_user.favorites[0].answers.to_a.include? Answer.find(params[:answer_id])
       #current_user.favorites[0].answers.to_a << Answer.find(params[:answer_id])
       @favorite = current_user.favorites[0]
@@ -22,6 +21,13 @@ class FavoritesController < ApplicationController
     else
       redirect_to Answer.find(params[:answer_id]).question, notice: 'Favorites already contain this answer'
     end
+  end
+
+  def remove_from_favorite
+    @favorite = current_user.favorites[0]
+    @favorite.answers.delete Answer.find(params[:answer_id])
+    @favorite.save
+    redirect_to myself_path, notice: 'Removed successfully'
   end
 
 #   # GET /favorites/1

@@ -35,7 +35,7 @@ class User
   # field :locked_at,       type: Time
   
   VALID_ROLES = [:admin, :everyone]
-  field :role, type: Symbol
+  field :role, type: Symbol, default: :everyone
   validates_inclusion_of :role, in: VALID_ROLES
 
   def admin?

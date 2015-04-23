@@ -1,13 +1,13 @@
+<div class="pull-right">
+	<%= link_to 'Edit', edit_question_path(@question), class: "btn btn-default" %> |
+	<%= link_to 'Back to Main Page', questions_path, class: "btn btn-default" %>
+</div>
+
 <h3><%= @question.title %></h3>
 <p><%= @question.author.email %></p>
 <p>
   <%= @question.body %>
 </p>
-
-<div class="pull-right">
-	<%= link_to 'Edit', edit_question_path(@question) %> |
-	<%= link_to 'To Main Page', questions_path %>
-</div>
 
 <h1>Answers</h1>
 <hr />

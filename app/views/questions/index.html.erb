@@ -17,7 +17,7 @@
   <div class="hottest_questions">
     <% @questions.each do |question| %>
       <div>
-        <h5><%= link_to "#{question.title}", question_path(question) %></h5>
+        <h5><strong><%= link_to "#{question.title}", question_path(question) %></strong></h5>
         <p><%= question.body %></p>
         <%= question.answers_count %> answers | 
         <%= question.total_votes %> total votes
@@ -34,9 +34,9 @@
     <% answers = Answer.all.desc(:votes, :created_at).page params[:answers_page] %>
     <% answers.each do |answer| %>
       <div>
-        <h5><%= link_to "#{answer.question.title}", question_path(answer.question) %></h5>
+        <h5><strong><%= link_to "#{answer.question.title}", question_path(answer.question) %></strong></h5>
           <%= answer.votes %> votes <br /><br />
-          <p><%= answer.body %></p>
+          <p><%= link_to "#{answer.body}", question_path(answer.question, anchor: answer.id) %></p>
           <hr />
       </div>
     <% end -%>

@@ -1,28 +1,13 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Excelsior is an online community where users can ask and answer questions. 
 
-Things you may want to cover:
+Once you register, you can choose to browse the hottest questions or the hottest answers. The latter is sorted by the votes of each answer while the former is sorted by the sum of the votes of all answers as well as the number of answers.
 
-* Ruby version
+Each user will also has a home page where all his questions and answers are listed. 
 
-* System dependencies
+Plus, there's an additional favorite feature which allows users to add their favorite answers and browse them in their home page.
 
-* Configuration
+Please notice that any inappropriate word or behaviour may cause your question/answer to be deleted or even your account banned.
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Have fun using Excelsior!

@@ -27,7 +27,7 @@ class FavoritesController < ApplicationController
     @favorite = current_user.favorites[0]
     @favorite.answers.delete Answer.find(params[:answer_id])
     @favorite.save
-    redirect_to myself_path, notice: 'Removed successfully'
+    redirect_to myself_path(index: 1), notice: 'Removed successfully'
   end
 
 #   # GET /favorites/1

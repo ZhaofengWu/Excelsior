@@ -1,37 +1,45 @@
-<h1>Listing Questions</h1>
+<div class="btn-group">
+  <% if params[:index].to_i == 0 %>
+    <%= link_to 'Hottest Questions', questions_path(index: 0), class: "btn btn-default active", autofocus: true %>
+    <%= link_to 'Hottest Answers', questions_path(index: 1), class: "btn btn-default" %>
+  <% elsif params[:index].to_i == 1 %>
+    <%= link_to 'Hottest Questions', questions_path(index: 0), class: "btn btn-default", autofocus: true %>
+    <%= link_to 'Hottest Answers', questions_path(index: 1), class: "btn btn-default active" %>
+  <% end -%>
+  <%= link_to 'New Question', new_question_path, class: "btn btn-default" %>
+</div>
 
-<%= link_to 'myself', myself_path(index: 0), class: "btn btn-default" %>
+<%= link_to 'myself', myself_path(index: 0), class: "btn btn-default pull-right" %>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Body</th>
-      <th>Author</th>
-      <th>Answers Count</th>
-      <th>Total Votes</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
+<% if params[:index].to_i == 0 %>
+  <h1>Hottest Questions</h1>
+  <hr />
+  <div class="hottest_questions">
     <% @questions.each do |question| %>
-      <tr>
-        <td><%= question.title %></td>
-        <td><%= question.body %></td>
-        <td><%= question.author.email %></td>
-        <td><%= question.answers_count %></td>
-        <td><%= question.total_votes %></td>
-        <td><%= link_to 'Show', question %></td>
-        <td><%= link_to 'Edit', edit_question_path(question) %></td>
-        <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      <div>
+        <h5><%= link_to "#{question.title}", question_path(question) %></h5>
+        <p><%= question.body %></p>
+        <%= question.answers_count %> answers | 
+        <%= question.total_votes %> total votes
+        <br /><hr />
+      </div>
+    <% end -%>
+  </div>
 
-<%= paginate @questions %>
-
-<br>
-
-<%= link_to 'New Question', new_question_path, class: "btn btn-default" %>
+  <%= paginate @questions, :param_name => "questions_page" %>
+<% elsif params[:index].to_i == 1 %>
+  <h1>Hottest Answers</h1>
+  <hr />
+  <div class="hottest_answers">
+    <% answers = Answer.all.desc(:votes, :created_at).page params[:answers_page] %>
+    <% answers.each do |answer| %>
+      <div>
+        <h5><%= link_to "#{answer.question.title}", question_path(answer.question) %></h5>
+          <%= answer.votes %> votes <br /><br />
+          <p><%= answer.body %></p>
+          <hr />
+      </div>
+    <% end -%>
+  </div>
+  <%= paginate answers, :param_name => "answers_page" %>
+<% end -%>

@@ -46,7 +46,7 @@
 		<% my_answers = @user.answers.desc(:created_at).page params[:my_answers_page] %>
 		<% my_answers.each do |answer| %>
 			<div>
-				<h5><strong><%= link_to "#{answer.question.title}", question_path(answer.question) %></strong>a</h5>
+				<h5><strong><%= link_to "#{answer.question.title}", question_path(answer.question) %></strong></h5>
 				<%= answer.votes %> votes <br /><br />
 				<p><%= link_to "#{answer.body}", question_path(answer.question, anchor: answer.id) %></p>
 				<hr />
@@ -58,16 +58,18 @@
 	<h4>Favorites</h4>
 	<br />
 	<div class="favorite">
-		<% favorite_answers = @user.favorites[0].answers.page params[:favorite_page] %>
-		<% favorite_answers.each do |answer| %>
-			<div>
-				<%= link_to 'Destroy', remove_from_favorite_favorites_path(answer_id: answer.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "pull-right" %>
-				<h5><strong><%= link_to "#{answer.question.title}", question_path(answer.question) %></strong></h5>
-				<%= answer.votes %> votes <br /><br />
-				<p><%= link_to "#{answer.body}", question_path(answer.question, anchor: answer.id) %></p>
-				<hr />
-			</div>
+		<% if @user.favorites.count != 0 %>
+			<% favorite_answers = @user.favorites[0].answers.page params[:favorite_page] %>
+			<% favorite_answers.each do |answer| %>
+				<div>
+					<%= link_to 'Destroy', remove_from_favorite_favorites_path(answer_id: answer.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "pull-right" %>
+					<h5><strong><%= link_to "#{answer.question.title}", question_path(answer.question) %></strong></h5>
+					<%= answer.votes %> votes <br /><br />
+					<p><%= link_to "#{answer.body}", question_path(answer.question, anchor: answer.id) %></p>
+					<hr />
+				</div>
+			<% end -%>
+			<%= paginate favorite_answers, :param_name => "favorite_page" %>
 		<% end -%>
-		<%= paginate favorite_answers, :param_name => "favorite_page" %>
 	</div>
 <% end -%>

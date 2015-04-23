@@ -9,7 +9,7 @@
   <%= link_to 'New Question', new_question_path, class: "btn btn-default" %>
 </div>
 
-<%= link_to 'myself', myself_path(index: 0), class: "btn btn-default pull-right" %>
+<%= link_to 'My Home Page', myself_path(index: 0), class: "btn btn-default pull-right" %>
 
 <% if params[:index].to_i == 0 %>
   <h1>Hottest Questions</h1>

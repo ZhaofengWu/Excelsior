@@ -10,6 +10,7 @@ class UsersController < ApplicationController
 
   def myself
     @user = current_user
+    @myself_page_selection = 0
   end
 
   # GET /users/1

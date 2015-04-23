@@ -3,25 +3,62 @@
   <%= @user.email %>
 </p>
 
-<h3>Favorites</h3>
-<br />
-	<% favorite_answers = @user.favorites[0].answers.page params[:page] %>
-	<% favorite_answers.each do |answer| %>
-		<div>
-			<h5><strong><%= answer.question.title %></strong></h5>
-			<p><%= answer.body %></p>
-			<%= link_to 'Destroy', remove_from_favorite_favorites_path(answer_id: answer.id), method: :delete, data: { confirm: 'Are you sure?' } %>
-			<br /><br />
-		</div>
-	<% end %>
+<div class="btn-group">
+	<%= link_to 'Home Page', myself_path(index: 0), class: "btn btn-default" %>
+	<%= link_to 'favorite', myself_path(index: 1), class: "btn btn-default" %>
+</div>
 
-<%= paginate favorite_answers %>
+<% if params[:index].to_i == 0 %>
+	<br />
+	<h4>My Questions</h4>
+	<br />
+	<div class="my_questions">
+		<% my_questions = @user.questions.desc(:created_at).page params[:my_questions_page] %>
+		<% my_questions.each do |question| %>
+			<div>
+				<h5><%= question.title %></h5>
+				<%= question.answers_count %> answers
+				<br /><br />
+			</div>
+		<% end -%>
+		<%= paginate my_questions, :param_name => "my_questions_page" %>
+	</div>
+	<br /><br />
+	<div class="my_answers">
+		<% my_answers = @user.answers.desc(:created_at).page params[:my_answers_page] %>
+		<% my_answers.each do |answer| %>
+			<div>
+				<h5><%= answer.question.title %></h5>
+				<%= answer.votes %> votes <br />
+				<%= answer.body %>
+				<br /><br />
+			</div>
+		<% end -%>
+		<%= paginate my_answers, :param_name => "my_answers_page" %>
+	</div>
+<% else %>
+	<br />
+	<h4>Favorites</h4>
+	<br />
+	<div class="favorite">
+		<% favorite_answers = @user.favorites[0].answers.page params[:favorite_page] %>
+		<% favorite_answers.each do |answer| %>
+			<div>
+				<h5><strong><%= answer.question.title %></strong></h5>
+				<p><%= answer.body %></p>
+				<%= link_to 'Destroy', remove_from_favorite_favorites_path(answer_id: answer.id), method: :delete, data: { confirm: 'Are you sure?' } %>
+				<br /><br />
+			</div>
+		<% end -%>
+		<%= paginate favorite_answers, :param_name => "favorite_page" %>
+	</div>
+<% end -%>
 
 <br />
 <%= link_to 'Back', root_path %>
 <br /><br /><br />
-<% if current_user %>
 
+<% if current_user %>
 <%= link_to "Sign out", destroy_user_session_path, data: {method: "delete"}, class: "btn btn-default" if current_user %> | 
 <%= link_to "Settings", edit_user_registration_path %>
 <% end -%>

@@ -11,15 +11,16 @@ class FavoritesController < ApplicationController
     if current_user.favorites.count == 0
       current_user.favorites.create
     end
-    if not current_user.favorites[0].answers.to_a.include? Answer.find(params[:answer_id])
+    answer = Answer.find(params[:answer_id])
+    if not current_user.favorites[0].answers.to_a.include? answer
       #current_user.favorites[0].answers.to_a << Answer.find(params[:answer_id])
       @favorite = current_user.favorites[0]
-      @favorite.answers << Answer.find(params[:answer_id])
+      @favorite.answers << answer
       @favorite.save
       current_user.favorites[0].inc(answers_count: 1)
-      redirect_to Answer.find(params[:answer_id]).question, notice: 'Created successfully'
+      redirect_to question_path(answer.question.id, page: (answer.question.answers.desc(:votes, :created_at).to_a.index(answer) / Answer.default_per_page + 1), anchor: answer.id), notice: 'Created successfully'
     else
-      redirect_to Answer.find(params[:answer_id]).question, notice: 'Favorites already contain this answer'
+      redirect_to question_path(answer.question.id, page: (answer.question.answers.desc(:votes, :created_at).to_a.index(answer) / Answer.default_per_page + 1), anchor: answer.id), notice: 'Favorites already contain this answer'
     end
   end
 

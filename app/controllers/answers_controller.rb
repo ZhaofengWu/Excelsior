@@ -6,13 +6,13 @@ class AnswersController < ApplicationController
   def upvote
     @answer.inc(votes: 1)
     @answer.question.inc(total_votes: 1)
-    redirect_to :controller => "questions", :action => "show", :id => @answer.question.id, :page => (@answer.question.answers.desc(:votes, :created_at).to_a.index(@answer) / Answer.default_per_page + 1), :anchor => @answer.id
+    redirect_to question_path(@answer.question.id, page: (@answer.question.answers.desc(:votes, :created_at).to_a.index(@answer) / Answer.default_per_page + 1), anchor: @answer.id)
   end
 
   def downvote
     @answer.inc(votes: -1)
     @answer.question.inc(total_votes: -1)
-    redirect_to :controller => "questions", :action => "show", :id => @answer.question.id, :page => (@answer.question.answers.desc(:votes, :created_at).to_a.index(@answer) / Answer.default_per_page + 1), :anchor => @answer.id
+    redirect_to question_path(@answer.question.id, page: (@answer.question.answers.desc(:votes, :created_at).to_a.index(@answer) / Answer.default_per_page + 1), anchor: @answer.id)
   end
 #   # GET /questions
 #   # GET /questions.json

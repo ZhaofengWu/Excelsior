@@ -12,4 +12,9 @@ class Question
   has_many :answers, dependent: :destroy
   belongs_to :author, class_name: "User"
   validates_presence_of :author
+
+
+   def self.hottestq
+    all.desc(:total_votes)
+  end
 end

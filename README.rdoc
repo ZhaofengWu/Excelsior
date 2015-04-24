@@ -1,4 +1,4 @@
-== README
+== Excelsior
 
 Excelsior is an online community where users can ask and answer questions. 
 

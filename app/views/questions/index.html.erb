@@ -9,7 +9,12 @@
   <%= link_to 'New Question', new_question_path, class: "btn btn-default" %>
 </div>
 
-<%= link_to 'My Home Page', myself_path(index: 0), class: "btn btn-default pull-right" %>
+<div class="btn-group pull-right">
+  <% if current_user.admin? %>
+    <%= link_to 'Manage All Users', users_path, class: "btn btn-default" %>
+  <% end -%>
+  <%= link_to 'My Home Page', myself_path(index: 0), class: "btn btn-default" %>
+</div>
 
 <% if params[:index].to_i == 0 %>
   <h1>Hottest Questions</h1>

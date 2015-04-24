@@ -8,7 +8,9 @@ class Ability
       if user.admin?
         can :manage, :all
       else
-        can :read, :all
+        can :read, Question
+        can :read, Answer
+        can :read, Favorite
         can :answer, Question
         can :myself, User
         can :create, Question

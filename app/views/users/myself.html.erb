@@ -62,6 +62,7 @@
 			<% favorite_answers = @user.favorites[0].answers.page params[:favorite_page] %>
 			<% favorite_answers.each do |answer| %>
 				<div>
+					<a name=<%= answer.id %>></a>
 					<%= link_to 'Destroy', remove_from_favorite_favorites_path(answer_id: answer.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "pull-right" %>
 					<h5><strong><%= link_to "#{answer.question.title}", question_path(answer.question) %></strong></h5>
 					<%= answer.votes %> votes <br /><br />

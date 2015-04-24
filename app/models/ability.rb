@@ -9,7 +9,7 @@ class Ability
         can :manage, :all
       else
         can :read, :all
-        can :reply, Question
+        can :answer, Question
         can :myself, User
         can :create, Question
       end

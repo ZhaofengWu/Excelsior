@@ -18,7 +18,8 @@ class QuestionsController < ApplicationController
 
   def answer
     @question.answers.create(body: params[:answer][:body], author: current_user)
-    redirect_to @question, notice: 'Answer was successfully created'
+    answer = @question.answers.to_a[@question.answers.length - 1]
+    redirect_to question_path(answer.question.id, page: (answer.question.answers.desc(:votes, :created_at).to_a.index(answer) / Answer.default_per_page + 1), anchor: answer.id), notice: 'Answer was successfully created'
   end
 
   # GET /questions/new

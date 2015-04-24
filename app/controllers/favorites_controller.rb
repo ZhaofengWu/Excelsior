@@ -25,10 +25,16 @@ class FavoritesController < ApplicationController
   end
 
   def remove_from_favorite
+    answer = Answer.find(params[:answer_id])
     @favorite = current_user.favorites[0]
-    @favorite.answers.delete Answer.find(params[:answer_id])
+    index = @favorite.answers.to_a.index(answer)
+    new_answer_id = (@favorite.answers.to_a.index(answer) == @favorite.answers.to_a.length - 1) ? @favorite.answers.to_a[index - 1].id : @favorite.answers.to_a[index].id
+    page_number = @favorite.answers.to_a.index(answer) / Answer.default_per_page + 1
+    new_page_number = ((@favorite.answers.to_a.index(answer) == @favorite.answers.to_a.length - 1) && (@favorite.answers.to_a.index(answer) % Answer.default_per_page == 0)) ? page_number - 1 : page_number
+    
+    @favorite.answers.delete answer
     @favorite.save
-    redirect_to myself_path(index: 1), notice: 'Removed successfully'
+    redirect_to myself_path(index: 2, favorite_page: new_page_number, anchor: new_answer_id), notice: 'Removed successfully'
   end
 
 #   # GET /favorites/1

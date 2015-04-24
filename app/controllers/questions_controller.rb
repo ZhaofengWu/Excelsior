@@ -14,6 +14,8 @@ class QuestionsController < ApplicationController
   # GET /questions/1
   # GET /questions/1.json
   def show
+    @question.clicks+=1
+    @question.save
   end
 
   def answer

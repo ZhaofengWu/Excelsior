@@ -17,4 +17,9 @@ class Answer
 	after_destroy do
 		self.question.inc(answers_count: -1)
 	end
+
+  def self.hottestq
+    all.desc(:total_votes)
+  end
+
 end

@@ -36,7 +36,26 @@
   
 
   </div>
-  <div class="right"></div>
+  <div class="right">
+    
+  <h1>Hottest Answers</h1>
+  <hr />
+  <div class="hottest_answers">
+    <% answers = Answer.all.desc(:votes, :created_at).page params[:answers_page] %>
+    <% answers.each do |answer| %>
+      <div>
+        <h5><strong><%= link_to "#{answer.question.title}", question_path(answer.question) %></strong></h5>
+          <%= answer.votes %> votes <br /><br />
+          <p><%= link_to "#{answer.body}", question_path(answer.question, page: (answer.question.answers.desc(:votes, :created_at).to_a.index(answer) / Answer.default_per_page + 1), anchor: answer.id) %></p>
+          <hr />
+      </div>
+    <% end -%>
+  </div>
+
+
+
+    
+  </div>
   <div class="center">
     <h2>Log in</h2>
 

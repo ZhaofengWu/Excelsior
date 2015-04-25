@@ -4,7 +4,7 @@
 </div>
 
 <h3><%= @question.title %></h3>
-<p><%= @question.author.email %></p>
+<p>ASKED BY<%= @question.author.email %></p>
 <p>clicks:::::<%= @question.clicks %></p>
 <p>
   <%= @question.body %>
@@ -21,7 +21,7 @@
 		<!-- <button>Upvote</button>
 		<button>Downvote</button> -->
 		  <strong>votes:</strong> <%= answer.votes %>
-		  <strong>author:</strong> <%= answer.author.email %>
+		  <strong>ANSWERED BY</strong> <%= answer.author.email %>
 		<p><%= answer.body %></p>
 		<%= link_to 'Add to favorites', add_to_favorite_favorites_path(answer_id: answer.id), data: { confirm: "Are you sure?" }, method: :post %>
 		<br /><hr />

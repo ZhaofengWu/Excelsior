@@ -22,7 +22,7 @@
   <div class="hottest_questions">
     <% @questions.each do |question| %>
       <div>
-        <h5><strong><%= link_to "#{question.title}", question_path(question) %></strong></h5>
+        <h5><strong><%= link_to "#{question.title}", question_path(question) %></strong> ASKED BY<%= question.author.email %></h5>
         <p><%= question.body %></p>
         <%= question.answers_count %> answers | 
         <%= question.total_votes %> total votes

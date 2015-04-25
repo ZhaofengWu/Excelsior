@@ -8,81 +8,124 @@
     color: white;
   }
   #contentContainer{overflow:hidden; zoom:1;}
-  .left{width:200px; margin-bottom:-3000px; padding-bottom:3000px; background:#f0f3f9; float:left;}
-  .right{width:200px; margin-bottom:-3000px; padding-bottom:3000px; background:#f0f3f9; float:right;}
-  .center{font-size: 15px; margin:0 210px 0 210px; background:#cad5eb;text-align: center}
+  .qabar{width: 350px:;display: block;}
+  /*.qabar,.login{float: left;}*/
+  /*.nav{width: 300px;}*/
+  /*hottest_questions.nav{width: 200px;/*padding-right: 100px;*/}*/
+  /*.qabar{display: inline-block;}*/
+  .hottest_questions.nav{width: 300px;}
+  .qabar{border-radius: 5px;}
+  .left{width:300px; margin-bottom:-3000px; padding-bottom:3000px; background:#f0f3f9;/* float:left;*/text-align: left;padding-left: 20px;padding-right: 10px;}
+  .right{width:300px; margin-bottom:-3000px; padding-bottom:3000px; background:#f0f3f9;/* float:right*/;text-align: left;padding-left: 20px;padding-right: 10px;}
+  .left_bar{/*font-size: 15px; *//*margin:0px 200px 0px 200px;*/margin-right: 0;margin-top: -800px; /*background:#cad5eb;*/text-align: center;/*border-radius: 20px;*/padding-top: 15px;padding-bottom: 15px;display: block;float: right;width: 600px;border-left: 20px;}
+  .logo h7{font-size: 100px;color: purple;}
+  .logo p{font-size: 40px;color: purple;}
+  .login{background:#cad5eb;border-radius: 20px;font-size: 15px;padding-top: 15px;padding-bottom: 15px; }
   </style>
 </head>
 
 
 <div id="contentContainer">
-  <div class="left">
+<p style="font-size:20px"><strong>Popular</strong></p>
+  <ul class="nav nav-pills nav-justified" style="width:300px">
+    <li class="active"><a href="#left">Hottest Questions</a></li>
+    <li><a href="#right">Hottest Answers</a></li>
+  </ul>
+  
+  <div class="qabar">
+    <div class="left">
+  <!-- <a href=""></a> -->
     
 
-  <h1>Hottest Questions</h1>
-  <hr />
-  <div class="hottest_questions">
-    <% Question.hottestq.limit(10).each do |question| %>
+  <!-- <h1>Hottest Questions</h1> -->
+  <!-- <hr /> -->
+  
+    <div class="hottest_questions">
+      <% Question.hottestq.limit(10).each do |question| %>
       <div>
-        <h5><strong><%= link_to "#{question.title}", question_path(question) %></strong></h5>
-        <p><%= question.body %></p>
-        <%= question.answers_count %> answers | 
-        <%= question.total_votes %> total votes
-        <br /><hr />
+      <ul class="nav nav-pills nav-stacked">
+        <li><a href="#{question.title}" data-toggle="pill"><%= link_to "#{question.title}",question_path(question) %> <!-- <br> --><span class="badge pull-right"><%= question.answers_count %> answers | <%= question.total_votes %> <!-- total  -->votes</span><!-- </br> --></a>
+        </li>
+          
+      </ul>
+
+        <!-- <h5><strong>%= link_to "#{question.title}", question_path(question) %></strong></h5>
+        # <p>%= question.body %></p>
+        # %= question.answers_count %> answers | 
+        # %= question.total_votes %> total votes
+        <!-- <br /><hr /> -->
       </div>
-    <% end -%>
-  </div>
+      <% end -%>
+    </div>
+
 
   
 
-  </div>
-  <div class="right">
+    </div>
+    <div class="right">
     
-  <h1>Hottest Answers</h1>
-  <hr />
-  <div class="hottest_answers">
-    <% answers = Answer.all.desc(:votes, :created_at).page params[:answers_page] %>
-    <% answers.each do |answer| %>
-      <div>
-        <h5><strong><%= link_to "#{answer.question.title}", question_path(answer.question) %></strong></h5>
-          <%= answer.votes %> votes <br /><br />
-          <p><%= link_to "#{answer.body}", question_path(answer.question, page: (answer.question.answers.desc(:votes, :created_at).to_a.index(answer) / Answer.default_per_page + 1), anchor: answer.id) %></p>
-          <hr />
-      </div>
-    <% end -%>
-  </div>
-
-
-
-    
-  </div>
-  <div class="center">
-    <h2>Log in</h2>
-
-    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-      <div class="field">
-        <%= f.label :email %><br />
-        <%= f.email_field :email, autofocus: true %>
-      </div>
-
-      <div class="field">
-        <%= f.label :password %><br />
-        <%= f.password_field :password, autocomplete: "off" %>
-      </div>
-
-      <% if devise_mapping.rememberable? -%>
-        <div class="field">
-          <%= f.check_box :remember_me %>
-          <%= f.label :remember_me %>
+  <!-- <h1>Hottest Answers</h1> -->
+    <hr />
+    <div class="hottest_answers">
+      <% answers = Answer.all.desc(:votes, :created_at).page params[:answers_page] %>
+      <% answers.each do |answer| %>
+        <div>
+        <ul class="nav nav-pills nav-stacked">
+        <li><a href="#{answer.question.title}" data-toggle="pill"><%= link_to "#{answer.question.title}",question_path(answer.question) %> <!-- <br> --><span class="badge pull-right"><%= answer.votes %><!-- total  -->votes</span><br /><br />
+            <p><%= link_to "#{answer.body}", question_path(answer.question, page: (answer.question.answers.desc(:votes, :created_at).to_a.index(answer) / Answer.default_per_page + 1), anchor: answer.id) %></p><!-- </br> --></a>
+        </li>
+          
+        </ul>
+          <!-- <h5><strong>%= link_to "#{answer.question.title}", question_path(answer.question) %></strong></h5>
+            %= answer.votes %> votes <br /><br />
+            <p>%= link_to "#{answer.body}", question_path(answer.question, page: (answer.question.answers.desc(:votes, :created_at).to_a.index(answer) / Answer.default_per_page + 1), anchor: answer.id) %></p> -->
+            <hr />
         </div>
       <% end -%>
+    </div>
+    </div>
 
-      <div class="actions">
-        <%= f.submit "Log in" %>
-      </div>
-    <% end %>
 
-    <%= render "devise/shared/links" %>
+
+    
+  </div>
+  <div class="left_bar">
+    <div class="logo">
+      <h7><strong>Excelsior</strong></h7>
+      <br /><br />
+      <br /><br />
+      <p>Searching for the Best</p>
+      <br /><br />
+      <br /><br />
+    </div>
+    <div class="login">
+      <h2>Log in</h2>
+
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <div class="field">
+          <%= f.label :email %><br />
+          <%= f.email_field :email, autofocus: true %>
+        </div>
+
+        <div class="field">
+          <%= f.label :password %><br />
+          <%= f.password_field :password, autocomplete: "off" %>
+        </div>
+
+        <% if devise_mapping.rememberable? -%>
+          <div class="field">
+            <%= f.check_box :remember_me %>
+            <%= f.label :remember_me %>
+          </div>
+        <% end -%>
+
+        <div class="actions">
+          <%= f.submit "Log in" %>
+        </div>
+        <% end %>
+
+      <%= render "devise/shared/links" %>
+    </div>
   </div>
 </div>
 

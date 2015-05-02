@@ -4,7 +4,8 @@ class Answer
 
   field :body, type: String, default: ""
   field :votes, type: Integer, default: 0
-  field :hasvoted, type: String, default: ""
+  field :hasvotedu, type: String, default: ""
+  field :hasvotedd, type: String, default: ""
 
   belongs_to :question
   belongs_to :author, class_name: "User"

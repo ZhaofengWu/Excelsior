@@ -16,10 +16,13 @@
 <% answers.each do |answer| %>
 	<div class="an-answer">
 		<a name=<%= answer.id %>></a>
-		<% if current_user.voteability==true && ! answer.hasvoted.include?(current_user.email)  %></p><%= link_to 'Upvote', upvote_answer_path(answer), method: :post %>
-		<%= link_to 'Downvote', downvote_answer_path(answer), method: :post %><% end -%>
-		<%= link_to 'Upvote', upvote_answer_path(answer), method: :post %>
-		<%= link_to 'Downvote', downvote_answer_path(answer), method: :post %>
+		<% if current_user.voteability==true && ! answer.hasvotedu.include?(current_user.email) && ! answer.hasvotedd.include?(current_user.email) %>
+			</p><%= link_to 'Upvote', upvote_answer_path(answer), method: :post %>
+			<%= link_to 'Downvote', downvote_answer_path(answer), method: :post %>
+			</p>
+		<% else -%>	
+			</p><%= link_to 'Cancel my vote', cancel_answer_path(answer), method: :post %></p>		
+		<% end -%>
 		<!-- <button>Upvote</button>
 		<button>Downvote</button> -->
 		  <strong>votes:</strong> <%= answer.votes %>

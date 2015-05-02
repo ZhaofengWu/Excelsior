@@ -1,4 +1,4 @@
-class Favorite
+ class Favorite
   include Mongoid::Document
   include Mongoid::Timestamps
 

@@ -34,6 +34,8 @@ class User
   # field :unlock_token,    type: String # Only if unlock strategy is :email or :both
   # field :locked_at,       type: Time
   
+  field :voteability,        type: Boolean, default: true
+
   VALID_ROLES = [:admin, :everyone]
   field :role, type: Symbol, default: :everyone
   validates_inclusion_of :role, in: VALID_ROLES

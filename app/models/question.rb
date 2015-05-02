@@ -17,6 +17,6 @@ class Question
 
 
   def self.hottestq
-    all.desc(:total_votes)
+    all.desc(:clicks, :answers_count, :total_votes, :created_at)
   end
 end

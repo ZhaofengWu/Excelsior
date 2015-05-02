@@ -16,6 +16,8 @@
 <% answers.each do |answer| %>
 	<div class="an-answer">
 		<a name=<%= answer.id %>></a>
+		<% if current_user.voteability==true && ! answer.hasvoted.include?(current_user.email)  %></p><%= link_to 'Upvote', upvote_answer_path(answer), method: :post %>
+		<%= link_to 'Downvote', downvote_answer_path(answer), method: :post %><% end -%>
 		<%= link_to 'Upvote', upvote_answer_path(answer), method: :post %>
 		<%= link_to 'Downvote', downvote_answer_path(answer), method: :post %>
 		<!-- <button>Upvote</button>

@@ -6,7 +6,18 @@ class AnswersController < ApplicationController
   def upvote
     @answer.inc(votes: 1)
     @answer.question.inc(total_votes: 1)
+    /@answer.hasvoted+= user.email/
+    @answer.hasvoted+= current_user.email
+    @answer.save
     redirect_to question_path(@answer.question.id, page: (@answer.question.answers.desc(:votes, :created_at).to_a.index(@answer) / Answer.default_per_page + 1), anchor: @answer.id)
+  end
+
+  def hasv(s)
+    if @anwser.hasvoted.include?(s)
+      return true
+    else
+      return false
+    end
   end
 
   def downvote

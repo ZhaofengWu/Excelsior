@@ -12,9 +12,7 @@ class AnswersController < ApplicationController
     redirect_to question_path(@answer.question.id, page: (@answer.question.answers.desc(:votes, :created_at).to_a.index(@answer) / Answer.default_per_page + 1), anchor: @answer.id)
   end
 
-  def cancel
-    if @answer.hasvotedd,include?(current_user.email) 
-  end
+  
 
   def downvote
     @answer.inc(votes: -1)

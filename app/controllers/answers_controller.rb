@@ -7,7 +7,13 @@ class AnswersController < ApplicationController
     @answer.inc(votes: 1)
     @answer.question.inc(total_votes: 1)
     /@answer.hasvoted+= user.email/
-    @answer.hasvotedu+= current_user.email
+    if ! @answer.hasvotedd.include?(current_user.email)
+      if ! @answer.hasvotedu.include?(current_user.email)
+        @answer.hasvotedu+= current_user.email
+      end
+    end
+    
+      @answer.hasvotedd=""
     @answer.save
     redirect_to question_path(@answer.question.id, page: (@answer.question.answers.desc(:votes, :created_at).to_a.index(@answer) / Answer.default_per_page + 1), anchor: @answer.id)
   end
@@ -16,8 +22,16 @@ class AnswersController < ApplicationController
 
   def downvote
     @answer.inc(votes: -1)
-    @answer.hasvotedd+= current_user.email
     @answer.question.inc(total_votes: -1)
+    if ! @answer.hasvotedu.include?(current_user.email)
+      if ! @answer.hasvotedd.include?(current_user.email)
+        @answer.hasvotedd+= current_user.email
+      end
+    end
+    
+      @answer.hasvotedu=""
+    
+    @answer.save
     redirect_to question_path(@answer.question.id, page: (@answer.question.answers.desc(:votes, :created_at).to_a.index(@answer) / Answer.default_per_page + 1), anchor: @answer.id)
   end
 #   # GET /questions

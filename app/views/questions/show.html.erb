@@ -22,10 +22,10 @@
 			</p>
 		<% else -%>	
 			<% if answer.hasvotedu.include?(current_user.email) %>
-				</p><%= link_to 'Cancel my upvote', upvote_answer_path(answer), method: :post %></p>
+				</p><%= link_to 'Cancel my upvote', downvote_answer_path(answer), method: :post %></p>
 			<% end %>
 			<% if answer.hasvotedd.include?(current_user.email) %>
-				</p><%= link_to 'Cancel my downvote', downvote_answer_path(answer), method: :post %></p>
+				</p><%= link_to 'Cancel my downvote', upvote_answer_path(answer), method: :post %></p>
 			<% end %>
 		<% end -%>
 		<!-- <button>Upvote</button>

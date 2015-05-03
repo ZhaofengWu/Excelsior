@@ -86,8 +86,8 @@
     </div>
     </div>
  //    <script type='text/javascript'>
-        $("#hques").click(function(){$("#hottest_questions").show();$("#hottest_answers").hide});
-        $("#hans").click(function(){$("#hottest_questions").hide();$("#hottest_answers").show});
+        $("#hques").click(function(){$("#hottest_questions").show();$("#hques").addClass("active");$("#hottest_answers").hide;$("#hans").removeClass("active")});
+        $("#hans").click(function(){$("#hottest_questions").hide();$("#hques").removeClass("active");$("#hottest_answers").show;$("#hans").addClass("active")});
  //   function switchNav(){
  //   var u = $('#left').serialize();
  // $.post('post.php',u,function(outpot){

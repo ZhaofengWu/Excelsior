@@ -3,6 +3,13 @@
 	<%= link_to 'Back to Main Page', questions_path, class: "btn btn-default" %>
 </div>
 
+<% form_tag questions_path do %>
+  <p>
+    <%= text_field_tag :search %>
+    <%= submit_tag "Search" %>
+  </p>
+<% end %>
+
 <h3><%= @question.title %></h3>
 <p>ASKED BY<%= @question.author.email %></p>
 <p>clicks:::::<%= @question.clicks %></p>

@@ -7,8 +7,14 @@ class QuestionsController < ApplicationController
   # GET /questions.json
   def index
     #@questions = Question.all.sort{|a1, a2| a2.total_votes <=> a1.total_votes}.page params[:page]
-    @questions = Question.all.desc(:total_votes, :answers_count, :created_at).page params[:questions_page]
+    
     #@questions = @questions.sort{|a1, a2| a2.total_votes <=> a1.total_votes}
+    if params[:search]
+      @questions = Question.search(params[:search]).page params[:questions_page]
+    else
+      @questions = Question.all.desc(:total_votes, :answers_count, :created_at).page params[:questions_page]
+    end
+
   end
 
   # GET /questions/1

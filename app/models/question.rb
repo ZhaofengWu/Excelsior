@@ -19,4 +19,15 @@ class Question
   def self.hottestq
     all.desc(:clicks, :answers_count, :total_votes, :created_at)
   end
+
+  def self.search(search)
+    # where("title like ?", "%#{search}%")
+    where(title: "#{search}")
+
+    # if search
+    #   find(:all, :conditions => ['title LIKE ?', "%#{search}%"])
+    # else
+    #   find(:all)
+    # end
+  end
 end

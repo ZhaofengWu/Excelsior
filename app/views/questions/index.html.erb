@@ -16,6 +16,17 @@
   <%= link_to 'My Home Page', myself_path(index: 0), class: "btn btn-default" %>
 </div>
 
+<br>
+<br />
+
+<%= form_tag(questions_path, method: "get") do %>
+  <%= label_tag(:search, "Search for:") %>
+  <%= text_field_tag(:search, params[:search]) %>
+  <%= submit_tag "Search", :name => nil %>
+<% end %>
+
+
+
 <% if params[:index].to_i == 0 %>
   <h1>Hottest Questions</h1>
   <hr />

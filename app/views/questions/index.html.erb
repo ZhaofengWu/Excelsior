@@ -1,3 +1,7 @@
+
+
+
+
 <div class="btn-group">
   <% if params[:index].to_i == 0 %>
     <%= link_to 'Hottest Questions', questions_path(index: 0), class: "btn btn-default active", autofocus: true %>
@@ -9,6 +13,12 @@
   <%= link_to 'New Question', new_question_path, class: "btn btn-default" %>
 </div>
 
+<%= form_tag(questions_path, method: "get", :class => 'search_form') do %>
+  <%= label_tag(:search, "Search for:") %>
+  <%= text_field_tag(:search, params[:search]) %>
+  <%= submit_tag "Search", :name => nil %>
+<% end %>
+
 <div class="btn-group pull-right">
   <% if current_user.admin? %>
     <%= link_to 'Manage All Users', users_path, class: "btn btn-default" %>
@@ -19,11 +29,7 @@
 <br>
 <br />
 
-<%= form_tag(questions_path, method: "get") do %>
-  <%= label_tag(:search, "Search for:") %>
-  <%= text_field_tag(:search, params[:search]) %>
-  <%= submit_tag "Search", :name => nil %>
-<% end %>
+
 
 
 
